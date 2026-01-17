@@ -1,0 +1,32 @@
+from input_parser import InputParser
+from state_analyzer import StateAnalyzer
+from safety_engine import SafetyEngine
+from response_planner import ResponsePlanner
+from response_renderer import ResponseRenderer
+
+
+def run_mi(raw_input: str) -> str:
+    parser = InputParser()
+    analyzer = StateAnalyzer()
+    safety = SafetyEngine()
+    planner = ResponsePlanner()
+    renderer = ResponseRenderer()
+
+    parsed = parser.parse(raw_input)
+    state = analyzer.analyze(parsed)
+    safety_result = safety.check(state)
+    plan = planner.plan(state, safety_result)
+    response = renderer.render(plan)
+
+    return response
+
+
+if __name__ == "__main__":
+    print("MI 1.0 – bereit. (Leere Eingabe zum Beenden)")
+    while True:
+        user_input = input("> ")
+        if user_input.strip() == "":
+            print("Beendet.")
+            break
+        output = run_mi(user_input)
+        print(output)
