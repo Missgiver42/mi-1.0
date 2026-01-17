@@ -1,0 +1,23 @@
+"""
+StateAnalyzer – MI 1.0
+Analysiert den Zustand der Eingabe
+"""
+
+class StateAnalyzer:
+    def analyze(self, parsed_input: dict) -> dict:
+        length = parsed_input.get("length", 0)
+        is_empty = parsed_input.get("is_empty", True)
+
+        if is_empty:
+            state = "EMPTY"
+        elif length < 10:
+            state = "VERY_SHORT"
+        elif length < 50:
+            state = "SHORT"
+        else:
+            state = "NORMAL"
+
+        return {
+            "state": state,
+            "length": length
+        }
